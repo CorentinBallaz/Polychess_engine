@@ -1,0 +1,12 @@
+Méthode fen() :
+
+- méthode qui va retourner la table de jeu sous la forme d'une chaine
+de caractères :
+"rnbqkbnr/pppppppp/8/8/P7/8/1PPPPPPP/RNBQKBNR b KQkq - 0 1"
+
+- il commence par la ligne du haut 
+- les lignes sont séparés par des /
+- si il y un objet, il affiche son initiale 
+- si il n'y a rien, il affiche le nombre de cases vides à la suite
+- "3p4" signifie que sur la ligne en question on a 3 cases vides,
+un point blanc et 4 cases vides
