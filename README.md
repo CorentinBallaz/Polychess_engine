@@ -47,4 +47,6 @@ Board representation and legal moves are no longer provided by python-chess but 
 * Zobrist key
 * Perft
 
+#Trello invite link
+https://trello.com/invite/b/EzclDVXL/f24c3069c9a6f61eb6ff34cb8334eb3f/tp2%C3%A06
 
