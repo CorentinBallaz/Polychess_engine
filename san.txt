@@ -1,0 +1,10 @@
+Méthode san(move) :
+
+-méthode qui va prendre en argument un mouvement de jeu, et qui va retourner
+la position d'arrivée du coup :
+"Nh3" correspond au point N qui arrive en H3 après le coup.
+
+-Ne retourne pas la position de départ de la pièce
+-Retourne l'initiale de la pièce avant la position d'arrivée sauf pour les pions
+où il ne retourne que la place "h3".
+-Il faut l'utiliser avant le board.push() car cette méthode remet move à None
