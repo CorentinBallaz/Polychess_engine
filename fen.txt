@@ -3,6 +3,8 @@ Méthode fen() :
 - méthode qui va retourner la table de jeu sous la forme d'une chaine
 de caractères :
 "rnbqkbnr/pppppppp/8/8/P7/8/1PPPPPPP/RNBQKBNR b KQkq - 0 1"
+c'est la méthode "epd" qui gère la première partie de la chaine :
+"rnbqkbnr/pppppppp/8/8/P7/8/1PPPPPPP/RNBQKBNR b KQkq -"
 
 - il commence par la ligne du haut 
 - les lignes sont séparés par des /
@@ -10,3 +12,4 @@ de caractères :
 - si il n'y a rien, il affiche le nombre de cases vides à la suite
 - "3p4" signifie que sur la ligne en question on a 3 cases vides,
 un point blanc et 4 cases vides
+- le b ou w représente le dernier joueur qui a joué (black or white)
