@@ -50,7 +50,9 @@ Board representation and legal moves are no longer provided by python-chess but 
 ## Running
 
 To run this chess game, you have to run the file "main.py". 
+
 /!\/!\/!\ Be carefull about the repository access where you want to save the games. /!\/!\/!\
+
 After that you will have to :
 * Fill the event name (string)
 * Fill the site where the event takes place (string)
@@ -58,7 +60,9 @@ After that you will have to :
 * Fill the number 1 player name (string)
 * Fill the number 2 player name (string)
 * Choose a game type (IAvsIA, PlayerVsIa, PlayerVsPlayer)
+
 The game will run and be save in "savedGames.pgn" file, which you can edit with a text editor.
+
 ### Trello invite link
 https://trello.com/invite/b/EzclDVXL/f24c3069c9a6f61eb6ff34cb8334eb3f/tp2%C3%A06
 
