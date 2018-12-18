@@ -1,4 +1,4 @@
-This py file has the main code about how to save tags and deplacements of a chess game in a PGN File. 
+This py file has the main code about how to save tags and moves of a chess game in a PGN File. 
 
 Be carefull to have a good "savedGames.pgn" file access (easily accessible). 
 
