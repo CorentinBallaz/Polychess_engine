@@ -65,7 +65,7 @@ def best_move(board):
 def IAvsIA ():        
 
     board = chess.Board()
-    display(SVG(chess.svg.board(board=board)
+    display(SVG(chess.svg.board(board=board)))
     print("")
     while not(board.is_game_over()):
         moves = board.legal_moves
@@ -114,7 +114,7 @@ def IAvsIA ():
 def MANvsIA ():
 
     board = chess.Board()
-    display(SVG(chess.svg.board(board=board)
+    display(SVG(chess.svg.board(board=board)))
     
     while not(board.is_game_over()):
             moves = board.legal_moves
@@ -181,7 +181,7 @@ def MANvsIA ():
 def MANvsMAN ():
     tour_1 = True #Pour mettre le 1er move en racine de l'arbre des moves
     board = chess.Board()
-    display(SVG(chess.svg.board(board=board)
+    display(SVG(chess.svg.board(board=board)))
     while not(board.is_game_over()):
             moves = board.legal_moves
             #On demande la case départ et d'arrivée
