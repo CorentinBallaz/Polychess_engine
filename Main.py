@@ -123,6 +123,7 @@ def MANvsIA ():
             if man_move in moves :
                 board.push(man_move)
                 line.append(man_move)
+                display(SVG(chess.svg.board(board=board, lastmove = man_move)))            
             else:
                 while man_move not in moves :
                     print("ce mouvement n'est pas possible, veuillez en saisir un autre")
@@ -134,6 +135,11 @@ def MANvsIA ():
                 game.add_variation(man_move)
                 display(SVG(chess.svg.board(board=board, lastmove = man_move)))            
                     
+            #Si la partie est fini on affiche le résultat
+            if board.is_game_over():
+                game.headers["Result"]=board.result()
+                print("The game is over")
+                return board.result()                
                 
                 
             #c'est désormais au tour de l'IA
@@ -162,9 +168,9 @@ def MANvsIA ():
                 
             #Si la partie est fini on affiche le résultat
             if board.is_game_over():
-                print("The game is over")
-                print(board.result())
                 game.headers["Result"]=board.result()
+                print("The game is over")
+                return board.result()
                 
     ###Enregistrement de la partie ###
     game.add_line(line)
@@ -179,9 +185,9 @@ def MANvsIA ():
 
 #### Structure de jeu en MAN VS MAN ####
 def MANvsMAN ():
-    tour_1 = True #Pour mettre le 1er move en racine de l'arbre des moves
     board = chess.Board()
     display(SVG(chess.svg.board(board=board)))
+    
     while not(board.is_game_over()):
             moves = board.legal_moves
             #On demande la case départ et d'arrivée
