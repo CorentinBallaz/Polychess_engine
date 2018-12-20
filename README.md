@@ -59,7 +59,7 @@ After that you will have to :
 * Fill the round number (integer)
 * Fill the number 1 player name (string)
 * Fill the number 2 player name (string)
-* Choose a game type (IAvsIA, PlayerVsIa, PlayerVsPlayer)
+* Choose a game type (IAvsIA, PlayerVsIA, PlayerVsPlayer)
 
 The game will run and be save in "savedGames.pgn" file, which you can edit with a text editor.
 
