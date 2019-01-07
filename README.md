@@ -1,3 +1,12 @@
+# Program owners 
+
+IDU Class 2018-2019 Polytech Annecy-Chambéry, France
+
+BALLAZ Corentin : Corentin.Ballaz@etu.univ-savoie.fr
+BURILLON William : William.Burillon@etu.univ-savoie.fr
+HENAFF Théo : Theo.Henaff@etu.univ-savoie.fr
+MARITON Tanguy : Tanguy.Mariton@etu.univ-savoie.fr
+
 # PolyChess
 
 PolyChess (named polychess as Git repository) is a Chess engine written in Python and used as practicals for a course on project management at the engineering school Polytech Annecy-Chambéry. 
