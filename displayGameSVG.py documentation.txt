@@ -1,4 +1,0 @@
-This py file allows us to display a chess game (board of the game).
-
-Don't forget to update the board after a move (board.push(move)).
-
