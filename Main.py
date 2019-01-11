@@ -17,9 +17,6 @@ from MinMax import MinMax
 game=chess.pgn.Game()
 line = []
 
-####Import Random for random move####
-import random
-
 ####Import svg and IPython for SVG display####
 import chess.svg
 from IPython.display import SVG,display
@@ -27,6 +24,10 @@ from IPython.display import SVG,display
 
 
 #### Add game Tag informations ####
+'''
+Initialization of the game for PGN saving
+'''
+
 def game_tag_info ():
     game.headers["Event"]=input("nom de l'évènement : ")
     game.headers["Site"]=input("nom du site : ")
@@ -39,6 +40,12 @@ def game_tag_info ():
 
 
 ####Best_move fct with PolyGlot selection ####
+'''
+This function will look for the best move if the board is in a library
+called bookfish.bin
+if the board isn't in book fish it will return the string 'nothing'
+'''
+
 def best_move(board):
     liste_coup=[]
 
@@ -47,7 +54,7 @@ def best_move(board):
         for entry in reader.find_all(board):
             liste_coup.append([entry.move(), entry.weight, entry.learn])
     
-        #extraction du meilleure coup de la liste des coups viables
+        #extraction of the best move from the list of 
         puissance = 0
         indice = 0
         for i in range (len(liste_coup)):
@@ -62,32 +69,29 @@ def best_move(board):
         
         
 
-#### Structure de jeu en IA VS IA ####
+#### IA vs IA game part ####
+'''   
+The IA will  first look for polyglot move but if there's no move available from 
+the bookfish it will use alpha-beta research, an optimized version of min-max method
+'''
+         
 def IAvsIA ():        
-
     board = chess.Board()
     display(SVG(chess.svg.board(board=board)))
     print("")
     while not(board.is_game_over()):
         moves = board.legal_moves
 
-            #On commence par regarder si il y a un best_move venant de polyglot
-            #Si il n'y en a pas on utilise min/max ou aleatory
+            #It look if the best_move function has a move to push
+            #If not, we use alpha-beta method
         if best_move(board) == "Nothing" :
-            list_move=[]
-            #moves n'est pas indexable, donc on ajoute chaque move dans une liste
-            for move in moves:
-                    list_move.append(move)
-            #on sélectionne un move au hasard de la liste et on le push        
-#            rand_int = random.randint(0,len(list_move)-1)
-#            line.append(list_move[rand_int])
-#            board.push(list_move[rand_int])
+            
             move=MinMax.minimaxRoot(3,board,True)
             line.append(move)
             board.push(move)
             display(SVG(chess.svg.board(board=board, lastmove = move)))            
             print("")
-            #Si il y a un best move on le push
+            #If there is a move from polyglot, we push it
         elif best_move(board) in moves:
             moveToPush = best_move(board)
             line.append(moveToPush)
@@ -96,14 +100,14 @@ def IAvsIA ():
             print("")
 
  
-        #Si la partie est fini on affiche le résultat
+        #We look after every move if the game is over in order to end it
         if board.is_game_over():
             print("The game is over")
             print(board.result())
             game.headers["Result"]=board.result()
             
             
-    ###Enregistrement de la partie ###        
+    ###Game saving ###        
     game.add_line(line)
     new_pgn=open("D:/Polytech/FI 3/Proj/gitTheo2.0/savedGames.pgn","a",encoding="utf-8")
     exporter=chess.pgn.FileExporter(new_pgn)
@@ -114,7 +118,7 @@ def IAvsIA ():
 
  
     
-#### Structure de jeu en MAN VS IA ####
+#### MAN vs IA game part ####
 def MANvsIA ():
 
     board = chess.Board()
@@ -122,65 +126,62 @@ def MANvsIA ():
     
     while not(board.is_game_over()):
             moves = board.legal_moves
-            #Le joueur commence toujours
-            man_move =chess.Move.from_uci(input("départ arrivée : "))
+            #The MAN start everytime
+            man_move =chess.Move.from_uci(input("your move : "))
             if man_move in moves :
                 board.push(man_move)
                 line.append(man_move)
                 display(SVG(chess.svg.board(board=board, lastmove = man_move)))            
             else:
                 while man_move not in moves :
-                    print("ce mouvement n'est pas possible, veuillez en saisir un autre")
-                    print("Voici la liste des mouvements possibles")
+                    print("Illegal move, please try an other one")
+                    print("Here is the list of legal move")
                     for move in board.legal_moves:
                         print(move) 
-                    man_move =chess.Move.from_uci(input("départ arrivée : "))
+                    man_move =chess.Move.from_uci(input("your move : "))
                 board.push(man_move)
-                game.add_variation(man_move)
+                line.append(man_move)
                 display(SVG(chess.svg.board(board=board, lastmove = man_move)))            
                     
-            #Si la partie est fini on affiche le résultat
+        #We look after every move if the game is over in order to end it
             if board.is_game_over():
-                game.headers["Result"]=board.result()
                 print("The game is over")
-                return board.result()                
+                print(board.result())
+                game.headers["Result"]=board.result()                
+                print("")                 
                 
                 
-            #c'est désormais au tour de l'IA
+            #Now it's IA turns
             
             moves = board.legal_moves
-            #On commence par regarder si il y a un best_move venant de polyglot
-            #Si il n'y en a pas on utilise min/max ou aleatory
+    
+                #It look if the best_move function has a move to push
+                #If not, we use alpha-beta method
             if best_move(board) == "Nothing" :
-                list_move=[]
-                #moves n'est pas indexable, donc on ajoute chaque move dans une liste
-                for move in moves:
-                        list_move.append(move)
-                #on sélectionne un move au hasard de la liste et on le push        
-#                rand_int = random.randint(0,len(list_move)-1)
-#                line.append(list_move[rand_int])
-#                board.push(list_move[rand_int])
-#                display(SVG(chess.svg.board(board=board, lastmove = list_move[rand_int])))    
+                
                 move=MinMax.minimaxRoot(3,board,True)
                 line.append(move)
                 board.push(move)
-                display(SVG(chess.svg.board(board=board, lastmove = move)))     
+                display(SVG(chess.svg.board(board=board, lastmove = move)))            
                 print("")
-                #Si il y a un best move on le push
+                #If there is a move from polyglot, we push it
             elif best_move(board) in moves:
                 moveToPush = best_move(board)
                 line.append(moveToPush)
                 board.push(moveToPush)
                 display(SVG(chess.svg.board(board=board, lastmove = moveToPush)))            
-                print("")      
-                
-            #Si la partie est fini on affiche le résultat
+                print("")
+
+ 
+            #We look after every move if the game is over in order to end it
             if board.is_game_over():
-                game.headers["Result"]=board.result()
                 print("The game is over")
-                return board.result()
+                print(board.result())
+                game.headers["Result"]=board.result()                
+                print("")      
+
                 
-    ###Enregistrement de la partie ###
+    ###Game saving ###        
     game.add_line(line)
     new_pgn=open("D:/Polytech/FI 3/Proj/gitTheo2.0/savedGames.pgn","a",encoding="utf-8")
     exporter=chess.pgn.FileExporter(new_pgn)
@@ -193,40 +194,41 @@ def MANvsIA ():
 
 #### Structure de jeu en MAN VS MAN ####
 def MANvsMAN ():
+    
     board = chess.Board()
     display(SVG(chess.svg.board(board=board)))
     
     while not(board.is_game_over()):
             moves = board.legal_moves
-            #On demande la case départ et d'arrivée
-            man_move =chess.Move.from_uci(input("départ arrivée : "))
-            
-            #On vérifie si le mouvment est possible
+            #The MAN start everytime
+            man_move =chess.Move.from_uci(input("your move : "))
             if man_move in moves :
                 board.push(man_move)
                 line.append(man_move)
                 display(SVG(chess.svg.board(board=board, lastmove = man_move)))            
-            
-            #Si il ne l'est pas, on refait la demande en affichant la liste des mouvements possible
             else:
                 while man_move not in moves :
-                    print("ce mouvement n'est pas possible, veuillez en saisir un autre")
-                    print("Voici la liste des mouvements possibles")
+                    print("Illegal move, please try an other one")
+                    print("Here is the list of legal move")
                     for move in board.legal_moves:
-                        print(move)
-                    man_move =chess.Move.from_uci(input("départ arrivée : "))
+                        print(move) 
+                    man_move =chess.Move.from_uci(input("your move : "))
                 board.push(man_move)
                 line.append(man_move)
-                display(SVG(chess.svg.board(board=board, lastmove = man_move)))                            
-            
-            #Si la partie est fini on affiche le résultat
+                display(SVG(chess.svg.board(board=board, lastmove = man_move)))            
+                    
+            #We look after every move if the game is over in order to end it
             if board.is_game_over():
                 print("The game is over")
                 print(board.result())
-                game.headers["Result"]=board.result()
+                game.headers["Result"]=board.result()                
+                print("")                          
+            
+
                 
-    ###Enregistrement de la partie ###
-    new_pgn=open("C:/Users/Théo/Documents/Cours/S5/PROJ531-Gestion-de-projets/TP2-à-6/polychess-master/polychess/savedGames.pgn","a",encoding="utf-8")
+    ###Game saving ###        
+    game.add_line(line)
+    new_pgn=open("D:/Polytech/FI 3/Proj/gitTheo2.0/savedGames.pgn","a",encoding="utf-8")
     exporter=chess.pgn.FileExporter(new_pgn)
     game.accept(exporter)
     
@@ -235,7 +237,7 @@ def MANvsMAN ():
       
 
                           
-#### Choix du mode de jeu ####                                
+#### Gamemode ####                                
 funcmap = {1 : IAvsIA, 2 : MANvsIA, 3 : MANvsMAN}    
                             
 def choix_mode (mode):
@@ -244,7 +246,7 @@ def choix_mode (mode):
         
         
         
-#### Lancement de la partie ####
+#### Game launching ####
 print(game_tag_info())
 print("veuillez choisir le mode de jeu")
 print("1 pour IAvsIA")
