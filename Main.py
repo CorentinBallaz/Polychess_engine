@@ -13,6 +13,7 @@ import chess.polyglot
 ### Import pgn and datetime module, setup PGN saving ###
 import chess.pgn
 import datetime
+from MinMax import MinMax
 game=chess.pgn.Game()
 line = []
 
@@ -78,10 +79,13 @@ def IAvsIA ():
             for move in moves:
                     list_move.append(move)
             #on sélectionne un move au hasard de la liste et on le push        
-            rand_int = random.randint(0,len(list_move)-1)
-            line.append(list_move[rand_int])
-            board.push(list_move[rand_int])
-            display(SVG(chess.svg.board(board=board, lastmove = list_move[rand_int])))            
+#            rand_int = random.randint(0,len(list_move)-1)
+#            line.append(list_move[rand_int])
+#            board.push(list_move[rand_int])
+            move=MinMax.minimaxRoot(3,board,True)
+            line.append(move)
+            board.push(move)
+            display(SVG(chess.svg.board(board=board, lastmove = move)))            
             print("")
             #Si il y a un best move on le push
         elif best_move(board) in moves:
@@ -101,7 +105,7 @@ def IAvsIA ():
             
     ###Enregistrement de la partie ###        
     game.add_line(line)
-    new_pgn=open("C:/Users/Théo/Documents/Cours/S5/PROJ531-Gestion-de-projets/TP2-à-6/polychess-master/polychess/savedGames.pgn","a",encoding="utf-8")
+    new_pgn=open("D:/Polytech/FI 3/Proj/gitTheo2.0/savedGames.pgn","a",encoding="utf-8")
     exporter=chess.pgn.FileExporter(new_pgn)
     game.accept(exporter)
     
@@ -153,10 +157,14 @@ def MANvsIA ():
                 for move in moves:
                         list_move.append(move)
                 #on sélectionne un move au hasard de la liste et on le push        
-                rand_int = random.randint(0,len(list_move)-1)
-                line.append(list_move[rand_int])
-                board.push(list_move[rand_int])
-                display(SVG(chess.svg.board(board=board, lastmove = list_move[rand_int])))            
+#                rand_int = random.randint(0,len(list_move)-1)
+#                line.append(list_move[rand_int])
+#                board.push(list_move[rand_int])
+#                display(SVG(chess.svg.board(board=board, lastmove = list_move[rand_int])))    
+                move=MinMax.minimaxRoot(3,board,True)
+                line.append(move)
+                board.push(move)
+                display(SVG(chess.svg.board(board=board, lastmove = move)))     
                 print("")
                 #Si il y a un best move on le push
             elif best_move(board) in moves:
@@ -174,7 +182,7 @@ def MANvsIA ():
                 
     ###Enregistrement de la partie ###
     game.add_line(line)
-    new_pgn=open("C:/Users/Théo/Documents/Cours/S5/PROJ531-Gestion-de-projets/TP2-à-6/polychess-master/polychess/savedGames.pgn","a",encoding="utf-8")
+    new_pgn=open("D:/Polytech/FI 3/Proj/gitTheo2.0/savedGames.pgn","a",encoding="utf-8")
     exporter=chess.pgn.FileExporter(new_pgn)
     game.accept(exporter)
     
