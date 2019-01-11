@@ -9,6 +9,16 @@ import chess
 
 class MinMax:
     def minimaxRoot(depth, board,isMaximizing):
+        '''
+        It's a recursive function which allow to the AI to know the best move  
+        
+        Type Depth : int
+        Type board : board
+        Type isMaximizing : boolean
+        Depth : the depth max of the research
+        Board : The actual board when we call the function
+        isMiximizing :Allow to the function to know if it have to minimizing or maximizing the move '''
+        
         possibleMoves = board.legal_moves
         bestMove = -9999
         bestMoveFinal = None
@@ -25,6 +35,18 @@ class MinMax:
         return bestMoveFinal
     
     def minimax(depth, board, alpha, beta, is_maximizing):
+        '''
+        This fonction is called by minimaxRoot method to maximizing or minimazing the move
+        Type depth : int
+        Type board : board
+        Type isMaximizing : boolean
+        Type alpha : int
+        Type beta : int
+        depth : the depth max of the research
+        board : The actual board when we call the function
+        isMiximizing :Allow to the function to know if it have to minimizing or maximizing the move
+        aplha, beta = respectively the max and the min between the alpha value and the bestMove value (or the betan and the bestMove value)
+        '''
         if(depth == 0):
             return -MinMax.evaluation(board)
         possibleMoves = board.legal_moves
@@ -70,6 +92,10 @@ class MinMax:
         return bestMove
     
     def evaluation(board):
+        '''
+        Type board : board
+        This function evaluate the board statement and return a value of the board. This value is relating to the number of the piece on the board with a weighting
+        '''
         i = 0
         evaluation = 0
         x = True
@@ -84,6 +110,9 @@ class MinMax:
     
     
     def getPieceValue(piece):
+        '''
+        This function return the value of a piece from the board
+        '''
         if(piece == None):
             return 0
         value = 0
